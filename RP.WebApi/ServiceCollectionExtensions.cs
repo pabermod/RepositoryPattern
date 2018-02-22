@@ -8,8 +8,7 @@ namespace RP.WebApi
         public static IServiceCollection RegisterServices(
             this IServiceCollection services)
         {
-            services.AddScoped<ICustomerService, CustomerService>();
-            // and a lot more Services
+            services.AddScoped<IRecipeService, RecipeService>();
 
             return services;
         }

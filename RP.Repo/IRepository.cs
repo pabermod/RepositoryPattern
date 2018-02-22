@@ -14,7 +14,11 @@ namespace RP.Repo
 
         Task<T> GetEntityAsync(Guid id);
 
+        Task<T> GetEntityAsync(Guid id, params Expression<Func<T, object>>[] includeProperties);
+
         T GetEntity(Guid id);
+
+        T GetEntity(Guid id, params Expression<Func<T, object>>[] includeProperties);
 
         IEnumerable<T> Get(Expression<Func<T, bool>> predicate);
 

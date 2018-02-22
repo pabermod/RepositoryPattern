@@ -25,10 +25,10 @@ namespace RP.WebApi
 
         public static void EnsureSeeded(this ApplicationContext context)
         {
-            if (!context.Customer.Any())
+            if (!context.Recipe.Any())
             {
-                var customers = JsonConvert.DeserializeObject<List<Customer>>(File.ReadAllText("seed" + Path.DirectorySeparatorChar + "customer.json"));
-                context.Customer.AddRange(customers);
+                var customers = JsonConvert.DeserializeObject<List<Recipe>>(File.ReadAllText("seed" + Path.DirectorySeparatorChar + "recipe.json"));
+                context.Recipe.AddRange(customers);
                 context.SaveChanges();
             }
         }

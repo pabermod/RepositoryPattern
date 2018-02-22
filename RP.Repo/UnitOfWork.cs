@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace RP.Repo
 {
-    public class UnitOfWork<TContext> : IRepositoryFactory, IUnitOfWork<TContext>, IUnitOfWork where TContext : DbContext
+    public class UnitOfWork<TContext> : IUnitOfWork<TContext>, IUnitOfWork where TContext : DbContext
     {
         private readonly TContext context;
         private Dictionary<Type, object> repositories;

@@ -7,7 +7,8 @@ namespace RP.Data
 {
     public class ApplicationContext : DbContext
     {
-        public DbSet<Customer> Customer { get; set; }
+        public DbSet<Recipe> Recipe { get; set; }
+        public DbSet<Ingredient> Ingredient { get; set; }
 
         public ApplicationContext(DbContextOptions<ApplicationContext> options) : base(options)
         {
@@ -16,8 +17,8 @@ namespace RP.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            new CustomerMap(modelBuilder.Entity<Customer>());
-            new AddressMap(modelBuilder.Entity<Address>());
+            new RecipeMap(modelBuilder.Entity<Recipe>());
+            new IngredientMap(modelBuilder.Entity<Ingredient>());
         }
 
         public override int SaveChanges()

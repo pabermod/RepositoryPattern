@@ -1,6 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 using System;
-using System.Collections.Generic;
 
 namespace RP.Data.Migrations
 {
@@ -9,59 +8,56 @@ namespace RP.Data.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Customer",
+                name: "Recipe",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     AddedDate = table.Column<DateTime>(nullable: false),
-                    Email = table.Column<string>(nullable: false),
-                    FirstName = table.Column<string>(nullable: false),
-                    LastName = table.Column<string>(nullable: false),
-                    MobileNumber = table.Column<string>(nullable: true),
-                    ModifiedDate = table.Column<DateTime>(nullable: true)
+                    Description = table.Column<string>(nullable: false),
+                    ImagePath = table.Column<string>(nullable: false),
+                    ModifiedDate = table.Column<DateTime>(nullable: true),
+                    Name = table.Column<string>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Customer", x => x.Id);
+                    table.PrimaryKey("PK_Recipe", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Address",
+                name: "Ingredient",
                 columns: table => new
                 {
                     Id = table.Column<Guid>(nullable: false),
                     AddedDate = table.Column<DateTime>(nullable: false),
-                    AddressLine1 = table.Column<string>(nullable: false),
-                    City = table.Column<string>(nullable: false),
-                    CustomerId = table.Column<Guid>(nullable: false),
+                    Amount = table.Column<string>(nullable: false),
                     ModifiedDate = table.Column<DateTime>(nullable: true),
-                    Postcode = table.Column<string>(nullable: false),
-                    Street = table.Column<string>(nullable: false)
+                    Name = table.Column<string>(nullable: false),
+                    RecipeId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Address", x => x.Id);
+                    table.PrimaryKey("PK_Ingredient", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Address_Customer_CustomerId",
-                        column: x => x.CustomerId,
-                        principalTable: "Customer",
+                        name: "FK_Ingredient_Recipe_RecipeId",
+                        column: x => x.RecipeId,
+                        principalTable: "Recipe",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Address_CustomerId",
-                table: "Address",
-                column: "CustomerId");
+                name: "IX_Ingredient_RecipeId",
+                table: "Ingredient",
+                column: "RecipeId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Address");
+                name: "Ingredient");
 
             migrationBuilder.DropTable(
-                name: "Customer");
+                name: "Recipe");
         }
     }
 }

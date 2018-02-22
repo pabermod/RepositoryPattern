@@ -20,66 +20,57 @@ namespace RP.Data.Migrations
                 .HasAnnotation("ProductVersion", "2.0.1-rtm-125")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("RP.Data.Address", b =>
+            modelBuilder.Entity("RP.Data.Ingredient", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("AddedDate");
 
-                    b.Property<string>("AddressLine1")
-                        .IsRequired();
-
-                    b.Property<string>("City")
-                        .IsRequired();
-
-                    b.Property<Guid>("CustomerId");
+                    b.Property<string>("Amount");
 
                     b.Property<DateTime?>("ModifiedDate");
 
-                    b.Property<string>("Postcode")
+                    b.Property<string>("Name")
                         .IsRequired();
 
-                    b.Property<string>("Street")
-                        .IsRequired();
+                    b.Property<Guid>("RecipeId");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CustomerId");
+                    b.HasIndex("RecipeId");
 
-                    b.ToTable("Address");
+                    b.ToTable("Ingredient");
                 });
 
-            modelBuilder.Entity("RP.Data.Customer", b =>
+            modelBuilder.Entity("RP.Data.Recipe", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd();
 
                     b.Property<DateTime>("AddedDate");
 
-                    b.Property<string>("Email")
+                    b.Property<string>("Description")
                         .IsRequired();
 
-                    b.Property<string>("FirstName")
+                    b.Property<string>("ImagePath")
                         .IsRequired();
-
-                    b.Property<string>("LastName")
-                        .IsRequired();
-
-                    b.Property<string>("MobileNumber");
 
                     b.Property<DateTime?>("ModifiedDate");
 
+                    b.Property<string>("Name")
+                        .IsRequired();
+
                     b.HasKey("Id");
 
-                    b.ToTable("Customer");
+                    b.ToTable("Recipe");
                 });
 
-            modelBuilder.Entity("RP.Data.Address", b =>
+            modelBuilder.Entity("RP.Data.Ingredient", b =>
                 {
-                    b.HasOne("RP.Data.Customer", "Customer")
-                        .WithMany("Addresses")
-                        .HasForeignKey("CustomerId")
+                    b.HasOne("RP.Data.Recipe", "Recipe")
+                        .WithMany("Ingredients")
+                        .HasForeignKey("RecipeId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 namespace RP.WebApi.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Customer")]
-    public class CustomerController : Controller
+    [Route("api/Recipe")]
+    public class RecipeController : Controller
     {
-        private readonly ICustomerService customerService;
+        private readonly IRecipeService recipeService;
 
-        public CustomerController(ICustomerService service)
+        public RecipeController(IRecipeService service)
         {
-            customerService = service;
+            recipeService = service;
         }
 
         /// <summary>
@@ -23,7 +23,7 @@ namespace RP.WebApi.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAll()
         {
-            return Ok(await customerService.GetAllAsync());
+            return Ok(await recipeService.GetAllAsync());
         }
 
         /// <summary>
@@ -32,31 +32,31 @@ namespace RP.WebApi.Controllers
         /// <param name="id">Identifier of the customer</param>
         /// <returns></returns>
         [HttpGet("{id}", Name = "Get")]
-        public async Task<IActionResult> GetAsync(Guid id)
+        public async Task<IActionResult> Get(Guid id)
         {
-            var customer = await customerService.GetCustomerAsync(id);
-            if (customer == null)
+            var recipe = await recipeService.GetRecipeAsync(id);
+            if (recipe == null)
             {
                 return NotFound();
             }
-            return Ok(customer);
+            return Ok(recipe);
         }
 
-        // POST: api/Customer
+        // POST: api/Recipe
         [HttpPost]
         public void Post([FromBody]string value)
         {
         }
 
-        // PUT: api/Customer/5
+        // PUT: api/Recipe/5
         [HttpPut("{id}")]
-        public void Put(int id, [FromBody]string value)
+        public void Put(Guid id, [FromBody]string value)
         {
         }
 
         // DELETE: api/ApiWithActions/5
         [HttpDelete("{id}")]
-        public void Delete(int id)
+        public void Delete(Guid id)
         {
         }
     }

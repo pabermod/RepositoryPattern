@@ -24,9 +24,37 @@ namespace RP.Repo
             return dbSet.Find(id);
         }
 
+        public T GetEntity(Guid id, params Expression<Func<T, object>>[] includeProperties)
+        {
+            IEnumerable<string> properties = GetProperties(includeProperties);
+
+            IQueryable<T> queryable = dbSet;
+
+            foreach (var property in includeProperties)
+            {
+                queryable = dbSet.Include(property);
+            }
+
+            return queryable.FirstOrDefault(x => x.Id == id);
+        }
+
         public Task<T> GetEntityAsync(Guid id)
         {
             return dbSet.FindAsync(id);
+        }
+
+        public Task<T> GetEntityAsync(Guid id, params Expression<Func<T, object>>[] includeProperties)
+        {
+            IEnumerable<string> properties = GetProperties(includeProperties);
+
+            IQueryable<T> queryable = dbSet;
+
+            foreach (var property in includeProperties)
+            {
+                queryable = dbSet.Include(property);
+            }
+
+            return queryable.FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public IEnumerable<T> Get()
@@ -84,6 +112,21 @@ namespace RP.Repo
             {
                 dbSet.Remove(existing);
             }
+        }
+
+        private static IEnumerable<string> GetProperties(Expression<Func<T, object>>[] includeProperties)
+        {
+            List<string> includelist = new List<string>();
+
+            foreach (var item in includeProperties)
+            {
+                MemberExpression body = item.Body as MemberExpression;
+                if (body == null)
+                    throw new ArgumentException("The body must be a member expression");
+
+                includelist.Add(body.Member.Name);
+            }
+            return includelist.AsEnumerable();
         }
     }
 }
