@@ -1,15 +1,17 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.27130.2027
+VisualStudioVersion = 15.0.27130.2036
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RP.Data", "RP.Data\RP.Data.csproj", "{5E7F2624-1E1C-498B-8914-C16F43C4FB80}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RP.Data", "RP.Data\RP.Data.csproj", "{5E7F2624-1E1C-498B-8914-C16F43C4FB80}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RP.WebApi", "Rp.WebApi\RP.WebApi.csproj", "{27BBC763-CC41-4DE6-95E3-6D4298226A3D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RP.WebApi", "Rp.WebApi\RP.WebApi.csproj", "{27BBC763-CC41-4DE6-95E3-6D4298226A3D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RP.Repo", "RP.Repo\RP.Repo.csproj", "{A12D8FA4-7911-4DE0-A460-F0B4C3C5F2AE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RP.Repo", "RP.Repo\RP.Repo.csproj", "{A12D8FA4-7911-4DE0-A460-F0B4C3C5F2AE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RP.Service", "RP.Service\RP.Service.csproj", "{E9D217D7-4C6F-48E5-8EE0-CA44E35A0080}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RP.Service", "RP.Service\RP.Service.csproj", "{E9D217D7-4C6F-48E5-8EE0-CA44E35A0080}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RP.DTO", "RP.DTO\RP.DTO.csproj", "{2EB32A87-BEF5-4793-8244-E68056C2212A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{E9D217D7-4C6F-48E5-8EE0-CA44E35A0080}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E9D217D7-4C6F-48E5-8EE0-CA44E35A0080}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E9D217D7-4C6F-48E5-8EE0-CA44E35A0080}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2EB32A87-BEF5-4793-8244-E68056C2212A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2EB32A87-BEF5-4793-8244-E68056C2212A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2EB32A87-BEF5-4793-8244-E68056C2212A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2EB32A87-BEF5-4793-8244-E68056C2212A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

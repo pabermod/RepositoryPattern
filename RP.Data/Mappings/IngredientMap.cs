@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata.Builders;
+﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace RP.Data.Mappings
 {
@@ -9,7 +10,11 @@ namespace RP.Data.Mappings
         {
             entityBuilder.Property(t => t.Name).IsRequired();
             entityBuilder.Property(t => t.Amount).IsRequired();
-            entityBuilder.HasOne(e => e.Recipe).WithMany(e => e.Ingredients).HasForeignKey(e => e.RecipeId);
+            entityBuilder
+                .HasOne(e => e.Recipe)
+                .WithMany(e => e.Ingredients)
+                .HasForeignKey(e => e.RecipeId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

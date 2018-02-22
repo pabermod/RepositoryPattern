@@ -1,4 +1,6 @@
-﻿using RP.Data;
+﻿using AutoMapper;
+using RP.Data;
+using RP.DTO.Recipes;
 using RP.Repo;
 using System;
 using System.Collections.Generic;
@@ -8,28 +10,31 @@ namespace RP.Service
 {
     public class RecipeService : EntityService<Recipe>, IRecipeService
     {
-        public RecipeService(IUnitOfWork unitOfWork) : base(unitOfWork)
+        public RecipeService(IUnitOfWork unitOfWork, IMapper iMapper) : base(unitOfWork, iMapper)
         {
         }
 
-        public IEnumerable<Recipe> GetAll()
+        public IEnumerable<GetAllRecipesOutput> GetAll()
         {
-            return repository.Get();
+            return iMapper.Map<IEnumerable<GetAllRecipesOutput>>(repository.Get());
         }
 
-        public Task<List<Recipe>> GetAllAsync()
+        public async Task<IEnumerable<GetAllRecipesOutput>> GetAllAsync()
         {
-            return repository.GetAsync();
+            var recipes = await repository.GetAsync();
+            return iMapper.Map<IEnumerable<GetAllRecipesOutput>>(recipes);
         }
 
-        public Recipe GetRecipe(Guid id)
+        public GetRecipeOutput GetRecipe(Guid id)
         {
-            return repository.GetEntity(id, r => r.Ingredients);
+            var recipeEntity = repository.GetEntity(id, r => r.Ingredients);
+            return iMapper.Map<GetRecipeOutput>(recipeEntity);
         }
 
-        public Task<Recipe> GetRecipeAsync(Guid id)
+        public async Task<GetRecipeOutput> GetRecipeAsync(Guid id)
         {
-            return repository.GetEntityAsync(id, r => r.Ingredients);
+            var recipeEntity = await repository.GetEntityAsync(id, r => r.Ingredients);
+            return iMapper.Map<GetRecipeOutput>(recipeEntity);
         }
 
         public Guid Update(Recipe recipe)

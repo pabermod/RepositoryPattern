@@ -1,4 +1,5 @@
-﻿using RP.Data;
+﻿using AutoMapper;
+using RP.Data;
 using RP.Repo;
 
 namespace RP.Service
@@ -7,11 +8,13 @@ namespace RP.Service
     {
         protected readonly IUnitOfWork unitOfWork;
         protected readonly IRepository<T> repository;
+        protected readonly IMapper iMapper;
 
-        public EntityService(IUnitOfWork unitOfWork)
+        public EntityService(IUnitOfWork unitOfWork, IMapper iMapper)
         {
             this.unitOfWork = unitOfWork;
             repository = this.unitOfWork.GetRepository<T>();
+            this.iMapper = iMapper;
         }
     }
 }

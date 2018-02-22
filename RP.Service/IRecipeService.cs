@@ -1,4 +1,5 @@
 ﻿using RP.Data;
+using RP.DTO.Recipes;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -7,15 +8,15 @@ namespace RP.Service
 {
     public interface IRecipeService
     {
-        IEnumerable<Recipe> GetAll();
+        IEnumerable<GetAllRecipesOutput> GetAll();
 
-        Task<List<Recipe>> GetAllAsync();
+        Task<IEnumerable<GetAllRecipesOutput>> GetAllAsync();
 
         Guid Insert(Recipe recipe);
 
-        Recipe GetRecipe(Guid id);
+        GetRecipeOutput GetRecipe(Guid id);
 
-        Task<Recipe> GetRecipeAsync(Guid id);
+        Task<GetRecipeOutput> GetRecipeAsync(Guid id);
 
         Guid Update(Recipe recipe);
     }

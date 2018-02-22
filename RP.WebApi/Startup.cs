@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Newtonsoft.Json;
 using RP.Data;
 using RP.Repo.DependencyInjection;
+using RP.Service;
 
 namespace RP.WebApi
 {
@@ -21,10 +22,9 @@ namespace RP.WebApi
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().AddJsonOptions(options =>
-            {
-                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-            });
+            services.AddAutoMapper(x => x.AddProfile(new MappingsProfile()));
+
+            services.AddMvc();
 
             services.AddDbContext<ApplicationContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("RPContext")));
