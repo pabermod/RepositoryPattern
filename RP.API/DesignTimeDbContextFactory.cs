@@ -4,7 +4,7 @@ using Microsoft.Extensions.Configuration;
 using RP.Data;
 using System.IO;
 
-namespace RP.WebApi
+namespace RP.API
 {
     public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<ApplicationContext>
     {

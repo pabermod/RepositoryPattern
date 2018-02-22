@@ -27,7 +27,8 @@ namespace RP.Data.Migrations
 
                     b.Property<DateTime>("AddedDate");
 
-                    b.Property<string>("Amount");
+                    b.Property<string>("Amount")
+                        .IsRequired();
 
                     b.Property<DateTime?>("ModifiedDate");
 
@@ -71,7 +72,7 @@ namespace RP.Data.Migrations
                     b.HasOne("RP.Data.Recipe", "Recipe")
                         .WithMany("Ingredients")
                         .HasForeignKey("RecipeId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618
         }

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
-namespace RP.WebApi
+namespace RP.API
 {
     public class Program
     {

@@ -8,7 +8,7 @@ using RP.Data;
 using RP.Repo.DependencyInjection;
 using RP.Service;
 
-namespace RP.WebApi
+namespace RP.API
 {
     public class Startup
     {

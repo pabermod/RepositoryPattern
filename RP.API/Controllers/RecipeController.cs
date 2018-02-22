@@ -3,7 +3,7 @@ using RP.Service;
 using System;
 using System.Threading.Tasks;
 
-namespace RP.WebApi.Controllers
+namespace RP.API.Controllers
 {
     [Produces("application/json")]
     [Route("api/Recipe")]

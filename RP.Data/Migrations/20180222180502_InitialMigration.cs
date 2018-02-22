@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 using System;
+using System.Collections.Generic;
 
 namespace RP.Data.Migrations
 {
@@ -42,7 +43,7 @@ namespace RP.Data.Migrations
                         column: x => x.RecipeId,
                         principalTable: "Recipe",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(

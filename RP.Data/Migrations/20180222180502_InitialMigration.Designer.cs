@@ -11,7 +11,7 @@ using System;
 namespace RP.Data.Migrations
 {
     [DbContext(typeof(ApplicationContext))]
-    [Migration("20180222104314_InitialMigration")]
+    [Migration("20180222180502_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -28,7 +28,8 @@ namespace RP.Data.Migrations
 
                     b.Property<DateTime>("AddedDate");
 
-                    b.Property<string>("Amount");
+                    b.Property<string>("Amount")
+                        .IsRequired();
 
                     b.Property<DateTime?>("ModifiedDate");
 
@@ -72,7 +73,7 @@ namespace RP.Data.Migrations
                     b.HasOne("RP.Data.Recipe", "Recipe")
                         .WithMany("Ingredients")
                         .HasForeignKey("RecipeId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618
         }

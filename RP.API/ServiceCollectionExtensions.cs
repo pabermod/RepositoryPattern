@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using RP.Service;
 
-namespace RP.WebApi
+namespace RP.API
 {
     public static class ServiceCollectionExtensions
     {
