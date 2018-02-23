@@ -10,40 +10,68 @@ namespace RP.Repo
 {
     public class Repository<T> : IRepository<T> where T : BaseEntity
     {
-        protected readonly DbContext dbContext;
+        protected readonly DbContext context;
         protected readonly DbSet<T> dbSet;
 
         public Repository(DbContext context)
         {
-            dbContext = context;
-            dbSet = dbContext.Set<T>();
+            this.context = context;
+            dbSet = this.context.Set<T>();
         }
 
-        public T GetEntity(Guid id)
+        public async Task<Guid> Add(T entity)
         {
-            return dbSet.Find(id);
-        }
-
-        public T GetEntity(Guid id, params Expression<Func<T, object>>[] includeProperties)
-        {
-            IEnumerable<string> properties = GetProperties(includeProperties);
-
-            IQueryable<T> queryable = dbSet;
-
-            foreach (var property in includeProperties)
+            if (entity == null)
             {
-                queryable = dbSet.Include(property);
+                throw new ArgumentNullException("entity");
+            }
+            var entry = await dbSet.AddAsync(entity);
+            await SaveAsync();
+            return entry.Entity.Id;
+        }
+
+        public async Task Update(T entity)
+        {
+            if (entity == null)
+            {
+                throw new ArgumentNullException("entity");
             }
 
-            return queryable.FirstOrDefault(x => x.Id == id);
+            context.Entry(entity).State = EntityState.Modified;
+            dbSet.Attach(entity);
+            await SaveAsync();
         }
 
-        public Task<T> GetEntityAsync(Guid id)
+        public async Task Delete(Guid id)
+        {
+            if (id == null)
+            {
+                throw new ArgumentNullException("id");
+            }
+            T existing = dbSet.Find(id);
+            if (existing != null)
+            {
+                dbSet.Remove(existing);
+                await SaveAsync();
+            }
+        }
+
+        public IQueryable<T> Get()
+        {
+            return dbSet.AsQueryable();
+        }
+
+        public IQueryable<T> Get(Expression<Func<T, bool>> predicate)
+        {
+            return dbSet.Where(predicate).AsQueryable();
+        }
+
+        public Task<T> GetEntity(Guid id)
         {
             return dbSet.FindAsync(id);
         }
 
-        public Task<T> GetEntityAsync(Guid id, params Expression<Func<T, object>>[] includeProperties)
+        public Task<T> GetEntity(Guid id, params Expression<Func<T, object>>[] includeProperties)
         {
             IEnumerable<string> properties = GetProperties(includeProperties);
 
@@ -55,63 +83,6 @@ namespace RP.Repo
             }
 
             return queryable.FirstOrDefaultAsync(x => x.Id == id);
-        }
-
-        public IEnumerable<T> Get()
-        {
-            return dbSet.AsEnumerable();
-        }
-
-        public Task<List<T>> GetAsync()
-        {
-            return dbSet.ToListAsync();
-        }
-
-        public IEnumerable<T> Get(Expression<Func<T, bool>> predicate)
-        {
-            return dbSet.Where(predicate).AsEnumerable();
-        }
-
-        public void Add(T entity)
-        {
-            if (entity == null)
-            {
-                throw new ArgumentNullException("entity");
-            }
-            dbSet.Add(entity);
-        }
-
-        public Task AddAsync(T entity)
-        {
-            if (entity == null)
-            {
-                throw new ArgumentNullException("entity");
-            }
-            return dbSet.AddAsync(entity);
-        }
-
-        public void Update(T entity)
-        {
-            if (entity == null)
-            {
-                throw new ArgumentNullException("entity");
-            }
-
-            dbContext.Entry(entity).State = EntityState.Modified;
-            dbSet.Attach(entity);
-        }
-
-        public void Delete(T entity)
-        {
-            if (entity == null)
-            {
-                throw new ArgumentNullException("entity");
-            }
-            T existing = dbSet.Find(entity.Id);
-            if (existing != null)
-            {
-                dbSet.Remove(existing);
-            }
         }
 
         private static IEnumerable<string> GetProperties(Expression<Func<T, object>>[] includeProperties)
@@ -127,6 +98,11 @@ namespace RP.Repo
                 includelist.Add(body.Member.Name);
             }
             return includelist.AsEnumerable();
+        }
+
+        private async Task SaveAsync()
+        {
+            await context.SaveChangesAsync();
         }
     }
 }

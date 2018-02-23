@@ -5,13 +5,14 @@ using System.Collections.Generic;
 
 namespace RP.Repo
 {
-    public class UnitOfWork<TContext> : IUnitOfWork<TContext>, IUnitOfWork where TContext : DbContext
+    public class RepositoryFactory<TContext> : IRepositoryFactory<TContext>, IRepositoryFactory where TContext : DbContext
     {
         private readonly TContext context;
         private Dictionary<Type, object> repositories;
 
-        public UnitOfWork(TContext context)
+        public RepositoryFactory(TContext context)
         {
+            Console.WriteLine($"+ {this.GetType().Name} was created");
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
@@ -19,6 +20,7 @@ namespace RP.Repo
 
         public IRepository<TEntity> GetRepository<TEntity>() where TEntity : BaseEntity
         {
+            Console.WriteLine($"Repository for {typeof(TEntity)} obtained");
             if (repositories == null)
             {
                 repositories = new Dictionary<Type, object>();
@@ -32,13 +34,9 @@ namespace RP.Repo
             return (IRepository<TEntity>)repositories[type];
         }
 
-        public int Commit()
-        {
-            return context.SaveChanges();
-        }
-
         public void Dispose()
         {
+            Console.WriteLine($"- {this.GetType().Name} was disposed!");
             context?.Dispose();
         }
     }

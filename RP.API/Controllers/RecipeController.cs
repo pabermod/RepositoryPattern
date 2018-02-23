@@ -21,9 +21,9 @@ namespace RP.API.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        public async Task<IActionResult> GetAll()
+        public async Task<IActionResult> Get()
         {
-            return Ok(await recipeService.GetAllAsync());
+            return Ok(await recipeService.GetAll());
         }
 
         /// <summary>
@@ -31,10 +31,10 @@ namespace RP.API.Controllers
         /// </summary>
         /// <param name="id">Identifier of the customer</param>
         /// <returns></returns>
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id)
         {
-            var recipe = await recipeService.GetRecipeAsync(id);
+            var recipe = await recipeService.GetRecipe(id);
             if (recipe == null)
             {
                 return NotFound();

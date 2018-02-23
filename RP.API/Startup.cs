@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RP.Data;
-using RP.Repo.DependencyInjection;
+using RP.Repo;
 using RP.Service;
 
 namespace RP.API
@@ -29,7 +29,7 @@ namespace RP.API
             services.AddDbContext<ApplicationContext>(
                 options => options.UseSqlServer(Configuration.GetConnectionString("RPContext")));
 
-            services.AddUnitOfWork<ApplicationContext>();
+            services.AddScoped<IRepositoryFactory, RepositoryFactory<ApplicationContext>>();
 
             services.RegisterServices();
         }

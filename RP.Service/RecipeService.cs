@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using Microsoft.EntityFrameworkCore;
 using RP.Data;
 using RP.DTO.Recipes;
 using RP.Repo;
@@ -10,53 +12,47 @@ namespace RP.Service
 {
     public class RecipeService : EntityService<Recipe>, IRecipeService
     {
-        public RecipeService(IUnitOfWork unitOfWork, IMapper iMapper) : base(unitOfWork, iMapper)
+        public RecipeService(IRepositoryFactory repositoryFactory, IMapper iMapper) : base(repositoryFactory, iMapper)
         {
         }
 
-        public IEnumerable<GetAllRecipesOutput> GetAll()
+        public async Task<IEnumerable<GetAllRecipesOutput>> GetAll()
         {
-            return iMapper.Map<IEnumerable<GetAllRecipesOutput>>(repository.Get());
+            var recipes = repository.Get().ProjectTo<GetAllRecipesOutput>();
+            return await recipes.ToListAsync();
         }
 
-        public async Task<IEnumerable<GetAllRecipesOutput>> GetAllAsync()
+        public async Task<GetRecipeOutput> GetRecipe(Guid id)
         {
-            var recipes = await repository.GetAsync();
-            return iMapper.Map<IEnumerable<GetAllRecipesOutput>>(recipes);
-        }
-
-        public GetRecipeOutput GetRecipe(Guid id)
-        {
-            var recipeEntity = repository.GetEntity(id, r => r.Ingredients);
+            var recipeEntity = await repository.GetEntity(id, r => r.Ingredients);
             return iMapper.Map<GetRecipeOutput>(recipeEntity);
         }
 
-        public async Task<GetRecipeOutput> GetRecipeAsync(Guid id)
-        {
-            var recipeEntity = await repository.GetEntityAsync(id, r => r.Ingredients);
-            return iMapper.Map<GetRecipeOutput>(recipeEntity);
-        }
-
-        public Guid Update(Recipe recipe)
+        public Task<Guid> Create(Recipe recipe)
         {
             if (recipe == null)
             {
                 throw new ArgumentNullException("recipe");
             }
-            repository.Update(recipe);
-            unitOfWork.Commit();
-            return recipe.Id;
+            return repository.Add(recipe);
         }
 
-        public Guid Insert(Recipe recipe)
+        public async Task Update(Recipe recipe)
         {
             if (recipe == null)
             {
                 throw new ArgumentNullException("recipe");
             }
-            repository.Add(recipe);
-            unitOfWork.Commit();
-            return recipe.Id;
+            await repository.Update(recipe);
+        }
+
+        public async Task Delete(Guid id)
+        {
+            if (id == null)
+            {
+                throw new ArgumentNullException("id");
+            }
+            await repository.Delete(id);
         }
     }
 }

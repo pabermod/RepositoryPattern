@@ -6,14 +6,12 @@ namespace RP.Service
 {
     public abstract class EntityService<T> where T : BaseEntity
     {
-        protected readonly IUnitOfWork unitOfWork;
         protected readonly IRepository<T> repository;
         protected readonly IMapper iMapper;
 
-        public EntityService(IUnitOfWork unitOfWork, IMapper iMapper)
+        public EntityService(IRepositoryFactory repositoryFactory, IMapper iMapper)
         {
-            this.unitOfWork = unitOfWork;
-            repository = this.unitOfWork.GetRepository<T>();
+            repository = repositoryFactory.GetRepository<T>();
             this.iMapper = iMapper;
         }
     }

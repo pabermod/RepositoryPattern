@@ -8,16 +8,14 @@ namespace RP.Service
 {
     public interface IRecipeService
     {
-        IEnumerable<GetAllRecipesOutput> GetAll();
+        Task<IEnumerable<GetAllRecipesOutput>> GetAll();
 
-        Task<IEnumerable<GetAllRecipesOutput>> GetAllAsync();
+        Task<GetRecipeOutput> GetRecipe(Guid id);
 
-        Guid Insert(Recipe recipe);
+        Task<Guid> Create(Recipe recipe);
 
-        GetRecipeOutput GetRecipe(Guid id);
+        Task Update(Recipe recipe);
 
-        Task<GetRecipeOutput> GetRecipeAsync(Guid id);
-
-        Guid Update(Recipe recipe);
+        Task Delete(Guid id);
     }
 }

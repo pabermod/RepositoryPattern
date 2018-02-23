@@ -1,6 +1,6 @@
 ﻿namespace RP.DTO.Recipes
 {
-    public class RecipeDTO : EntityDTO
+    public class RecipeDTO
     {
         public string Name { get; set; }
         public string Description { get; set; }

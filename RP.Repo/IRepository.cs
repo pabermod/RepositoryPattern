@@ -1,6 +1,6 @@
 ﻿using RP.Data;
 using System;
-using System.Collections.Generic;
+using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
 
@@ -8,26 +8,18 @@ namespace RP.Repo
 {
     public interface IRepository<T> where T : BaseEntity
     {
-        IEnumerable<T> Get();
+        IQueryable<T> Get();
 
-        Task<List<T>> GetAsync();
+        IQueryable<T> Get(Expression<Func<T, bool>> predicate);
 
-        Task<T> GetEntityAsync(Guid id);
+        Task<T> GetEntity(Guid id);
 
-        Task<T> GetEntityAsync(Guid id, params Expression<Func<T, object>>[] includeProperties);
+        Task<T> GetEntity(Guid id, params Expression<Func<T, object>>[] includeProperties);
 
-        T GetEntity(Guid id);
+        Task<Guid> Add(T entity);
 
-        T GetEntity(Guid id, params Expression<Func<T, object>>[] includeProperties);
+        Task Update(T entity);
 
-        IEnumerable<T> Get(Expression<Func<T, bool>> predicate);
-
-        void Add(T entity);
-
-        Task AddAsync(T entity);
-
-        void Update(T entity);
-
-        void Delete(T entity);
+        Task Delete(Guid id);
     }
 }
