@@ -3,7 +3,8 @@ using System.Collections.Generic;
 
 namespace RP.API.Controllers
 {
-    [Route("api/[controller]")]
+    [Produces("application/json")]
+    [Route("api/[Controller]")]
     public class ValuesController : Controller
     {
         // GET api/values

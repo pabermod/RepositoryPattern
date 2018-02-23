@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 namespace RP.API.Controllers
 {
     [Produces("application/json")]
-    [Route("api/Recipe")]
+    [Route("api/[Controller]")]
+    [Route("api")]
     public class RecipeController : Controller
     {
         private readonly IRecipeService recipeService;
