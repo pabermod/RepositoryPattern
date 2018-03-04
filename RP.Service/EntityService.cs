@@ -7,12 +7,12 @@ namespace RP.Service
     public abstract class EntityService<T> where T : BaseEntity
     {
         protected readonly IRepository<T> repository;
-        protected readonly IMapper iMapper;
+        protected readonly IMapper mapper;
 
-        public EntityService(IRepositoryFactory repositoryFactory, IMapper iMapper)
+        public EntityService(IRepositoryFactory repositoryFactory, IMapper mapper)
         {
             repository = repositoryFactory.GetRepository<T>();
-            this.iMapper = iMapper;
+            this.mapper = mapper;
         }
     }
 }

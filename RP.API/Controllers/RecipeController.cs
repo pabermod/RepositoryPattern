@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using RP.DTO.Recipes;
 using RP.Service;
 using System;
 using System.Threading.Tasks;
@@ -45,8 +46,14 @@ namespace RP.API.Controllers
 
         // POST: api/Recipe
         [HttpPost]
-        public void Post([FromBody]string value)
+        public async Task<IActionResult> Post([FromBody]PostRecipeInput item)
         {
+            if (item == null)
+            {
+                return BadRequest();
+            }
+            Guid recipeId = await recipeService.Create(item);
+            return CreatedAtAction("Get", new { id = recipeId });
         }
 
         // PUT: api/Recipe/5
@@ -55,7 +62,7 @@ namespace RP.API.Controllers
         {
         }
 
-        // DELETE: api/ApiWithActions/5
+        // DELETE: api/Recipe/5
         [HttpDelete("{id}")]
         public void Delete(Guid id)
         {

@@ -25,6 +25,7 @@ namespace RP.Repo
             {
                 throw new ArgumentNullException("entity");
             }
+            entity.Id = Guid.NewGuid();
             var entry = await dbSet.AddAsync(entity);
             await SaveAsync();
             return entry.Entity.Id;
@@ -58,17 +59,17 @@ namespace RP.Repo
 
         public IQueryable<T> Get()
         {
-            return dbSet.AsQueryable();
+            return dbSet.AsNoTracking();
         }
 
         public IQueryable<T> Get(Expression<Func<T, bool>> predicate)
         {
-            return dbSet.Where(predicate).AsQueryable();
+            return dbSet.AsNoTracking().Where(predicate).AsQueryable();
         }
 
         public Task<T> GetEntity(Guid id)
         {
-            return dbSet.FindAsync(id);
+            return dbSet.FirstOrDefaultAsync(x => x.Id == id);
         }
 
         public Task<T> GetEntity(Guid id, params Expression<Func<T, object>>[] includeProperties)

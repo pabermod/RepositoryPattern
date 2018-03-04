@@ -2,7 +2,25 @@
 {
     public class IngredientDTO
     {
-        public string Name { get; set; }
-        public string Amount { get; set; }
+        private string name = string.Empty;
+        private string amount = string.Empty;
+
+        /// <summary>
+        /// Name of the ingredient
+        /// </summary>
+        public string Name
+        {
+            get { return name; }
+            set { name = value.Trim(); }
+        }
+
+        /// <summary>
+        /// Amount of the ingredient
+        /// </summary>
+        public string Amount
+        {
+            get { return amount; }
+            set { amount = value.Trim(); }
+        }
     }
 }

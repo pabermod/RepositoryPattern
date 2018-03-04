@@ -1,16 +1,10 @@
 ﻿using RP.DTO.Ingredients;
-using System;
 using System.Collections.Generic;
 
 namespace RP.DTO.Recipes
 {
-    public class GetRecipeOutput : RecipeDTO
+    public class PostRecipeInput : RecipeDTO
     {
-        /// <summary>
-        /// Id of the recipe
-        /// </summary>
-        public Guid Id { get; set; }
-
         /// <summary>
         /// Ingredients of the recipe
         /// </summary>

@@ -12,29 +12,28 @@ namespace RP.Service
 {
     public class RecipeService : EntityService<Recipe>, IRecipeService
     {
-        public RecipeService(IRepositoryFactory repositoryFactory, IMapper iMapper) : base(repositoryFactory, iMapper)
+        public RecipeService(IRepositoryFactory repositoryFactory, IMapper mapper) : base(repositoryFactory, mapper)
         {
         }
 
         public async Task<IEnumerable<GetAllRecipesOutput>> GetAll()
         {
-            var recipes = repository.Get().ProjectTo<GetAllRecipesOutput>();
-            return await recipes.ToListAsync();
+            return await repository.Get().ProjectTo<GetAllRecipesOutput>().ToListAsync();
         }
 
         public async Task<GetRecipeOutput> GetRecipe(Guid id)
         {
-            var recipeEntity = await repository.GetEntity(id, r => r.Ingredients);
-            return iMapper.Map<GetRecipeOutput>(recipeEntity);
+            return await repository.Get().ProjectTo<GetRecipeOutput>().FirstOrDefaultAsync(r => r.Id == id);
         }
 
-        public Task<Guid> Create(Recipe recipe)
+        public Task<Guid> Create(PostRecipeInput recipe)
         {
             if (recipe == null)
             {
                 throw new ArgumentNullException("recipe");
             }
-            return repository.Add(recipe);
+            var recipeEntity = mapper.Map<Recipe>(recipe);
+            return repository.Add(recipeEntity);
         }
 
         public async Task Update(Recipe recipe)

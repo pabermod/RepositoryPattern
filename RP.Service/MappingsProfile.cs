@@ -8,8 +8,7 @@ namespace RP.Service
     {
         public MappingsProfile()
         {
-            CreateMap<Recipe, GetRecipeOutput>().ReverseMap();
-            CreateMap<Recipe, GetAllRecipesOutput>().ReverseMap();
+            CreateMap<PostRecipeInput, Recipe>();
         }
     }
 }

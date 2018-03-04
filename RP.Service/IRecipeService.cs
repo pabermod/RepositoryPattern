@@ -12,7 +12,7 @@ namespace RP.Service
 
         Task<GetRecipeOutput> GetRecipe(Guid id);
 
-        Task<Guid> Create(Recipe recipe);
+        Task<Guid> Create(PostRecipeInput recipe);
 
         Task Update(Recipe recipe);
 
