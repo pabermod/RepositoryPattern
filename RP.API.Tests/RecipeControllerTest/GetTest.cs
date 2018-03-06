@@ -14,7 +14,7 @@ namespace RP.API.Tests.RecipeControllerTest
         }
 
         [Fact]
-        public async void Get_Should_Return_Recipe()
+        public async void WhenRecipeExists_ReturnRecipe()
         {
             var recipe = Builder<GetRecipeOutput>.CreateNew().Build();
             recipeServiceMock.Setup(service => service.GetRecipe(recipe.Id))
@@ -28,7 +28,7 @@ namespace RP.API.Tests.RecipeControllerTest
         }
 
         [Fact]
-        public async void Get_Should_Return_NotFound()
+        public async void WhenRecipeDoesNotExist_ReturnNotFoundResult()
         {
             recipeServiceMock.Setup(service => service.GetRecipe(It.IsAny<Guid>()))
                 .ReturnsAsync(() => null);

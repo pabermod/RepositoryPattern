@@ -10,6 +10,6 @@ namespace RP.Data
 
         public Guid RecipeId { get; set; }
 
-        public virtual Recipe Recipe { get; set; }
+        public Recipe Recipe { get; set; }
     }
 }

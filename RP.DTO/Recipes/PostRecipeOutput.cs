@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace RP.DTO.Recipes
 {
-    public class GetRecipeOutput : RecipeDTO
+    public class PostRecipeOutput : RecipeDTO
     {
         /// <summary>
         /// Id of the recipe

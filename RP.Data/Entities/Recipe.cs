@@ -7,6 +7,6 @@ namespace RP.Data
         public string Name { get; set; }
         public string Description { get; set; }
         public string ImagePath { get; set; }
-        public virtual ICollection<Ingredient> Ingredients { get; set; }
+        public ICollection<Ingredient> Ingredients { get; set; }
     }
 }

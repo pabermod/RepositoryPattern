@@ -2,6 +2,7 @@ using FizzWare.NBuilder;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using RP.DTO.Recipes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Xunit;
@@ -15,10 +16,12 @@ namespace RP.API.Tests.RecipeControllerTest
         }
 
         [Fact]
-        public async void Get_Should_Return_List_Of_Recipes()
+        public async void WhenRecipesExist_ReturnRecipes()
         {
-            int numRecipes = 20;
+            Random rand = new Random();
+            int numRecipes = rand.Next(100);
             var recipeList = Builder<GetAllRecipesOutput>.CreateListOfSize(numRecipes).Build().AsEnumerable();
+
             recipeServiceMock.Setup(service => service.GetAll())
                 .ReturnsAsync(recipeList);
 
@@ -30,7 +33,7 @@ namespace RP.API.Tests.RecipeControllerTest
         }
 
         [Fact]
-        public async void Get_Should_Return_Empty()
+        public async void WhenNoRecipes_ReturnEmpty()
         {
             var recipeList = new List<GetAllRecipesOutput>();
             recipeServiceMock.Setup(service => service.GetAll())

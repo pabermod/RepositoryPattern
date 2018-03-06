@@ -16,7 +16,7 @@ namespace RP.Repo
 
         Task<T> GetEntity(Guid id, params Expression<Func<T, object>>[] includeProperties);
 
-        Task<Guid> Add(T entity);
+        Task<T> Add(T entity);
 
         Task Update(T entity);
 

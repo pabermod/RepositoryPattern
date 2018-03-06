@@ -52,8 +52,8 @@ namespace RP.API.Controllers
             {
                 return BadRequest();
             }
-            Guid recipeId = await recipeService.Create(item);
-            return CreatedAtAction("Get", new { id = recipeId });
+            var recipe = await recipeService.Create(item);
+            return CreatedAtAction("Get", new { id = recipe.Id }, recipe);
         }
 
         // PUT: api/Recipe/5

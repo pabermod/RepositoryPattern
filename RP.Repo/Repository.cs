@@ -19,7 +19,7 @@ namespace RP.Repo
             dbSet = this.context.Set<T>();
         }
 
-        public async Task<Guid> Add(T entity)
+        public async Task<T> Add(T entity)
         {
             if (entity == null)
             {
@@ -28,7 +28,7 @@ namespace RP.Repo
             entity.Id = Guid.NewGuid();
             var entry = await dbSet.AddAsync(entity);
             await SaveAsync();
-            return entry.Entity.Id;
+            return entry.Entity;
         }
 
         public async Task Update(T entity)
@@ -59,7 +59,7 @@ namespace RP.Repo
 
         public IQueryable<T> Get()
         {
-            return dbSet.AsNoTracking();
+            return dbSet;
         }
 
         public IQueryable<T> Get(Expression<Func<T, bool>> predicate)

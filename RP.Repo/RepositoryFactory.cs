@@ -12,7 +12,7 @@ namespace RP.Repo
 
         public RepositoryFactory(TContext context)
         {
-            Console.WriteLine($"+ {this.GetType().Name} was created");
+            Console.WriteLine($"+ {GetType().Name} was created");
             this.context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
@@ -36,7 +36,7 @@ namespace RP.Repo
 
         public void Dispose()
         {
-            Console.WriteLine($"- {this.GetType().Name} was disposed!");
+            Console.WriteLine($"- {GetType().Name} was disposed!");
             context?.Dispose();
         }
     }
