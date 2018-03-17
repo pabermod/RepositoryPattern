@@ -18,21 +18,12 @@ namespace RP.API.Controllers
             recipeService = service;
         }
 
-        /// <summary>
-        /// Returns all customers
-        /// </summary>
-        /// <returns></returns>
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            return Ok(await recipeService.GetAll());
+            return Ok(await recipeService.GetRecipes());
         }
 
-        /// <summary>
-        /// Returns the specified customer
-        /// </summary>
-        /// <param name="id">Identifier of the customer</param>
-        /// <returns></returns>
         [HttpGet("{id}")]
         public async Task<IActionResult> Get(Guid id)
         {
@@ -44,7 +35,6 @@ namespace RP.API.Controllers
             return Ok(recipe);
         }
 
-        // POST: api/Recipe
         [HttpPost]
         public async Task<IActionResult> Post([FromBody]PostRecipeInput item)
         {
@@ -56,16 +46,24 @@ namespace RP.API.Controllers
             return CreatedAtAction("Get", new { id = recipe.Id }, recipe);
         }
 
-        // PUT: api/Recipe/5
         [HttpPut("{id}")]
         public void Put(Guid id, [FromBody]string value)
         {
         }
 
-        // DELETE: api/Recipe/5
         [HttpDelete("{id}")]
-        public void Delete(Guid id)
+        public async Task<IActionResult> Delete(Guid id)
         {
+            if (id == Guid.Empty)
+            {
+                return BadRequest();
+            }
+            bool result = await recipeService.Delete(id);
+            if (result)
+            {
+                return NoContent();
+            }
+            return NotFound();
         }
     }
 }

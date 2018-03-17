@@ -22,7 +22,7 @@ namespace RP.API.Tests.RecipeControllerTest
             int numRecipes = rand.Next(100);
             var recipeList = Builder<GetAllRecipesOutput>.CreateListOfSize(numRecipes).Build().AsEnumerable();
 
-            recipeServiceMock.Setup(service => service.GetAll())
+            recipeServiceMock.Setup(service => service.GetRecipes())
                 .ReturnsAsync(recipeList);
 
             var result = await controller.Get();
@@ -36,7 +36,7 @@ namespace RP.API.Tests.RecipeControllerTest
         public async void WhenNoRecipes_ReturnEmpty()
         {
             var recipeList = new List<GetAllRecipesOutput>();
-            recipeServiceMock.Setup(service => service.GetAll())
+            recipeServiceMock.Setup(service => service.GetRecipes())
                 .ReturnsAsync(recipeList);
 
             var result = await controller.Get();

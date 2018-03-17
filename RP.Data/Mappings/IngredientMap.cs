@@ -9,7 +9,7 @@ namespace RP.Data.Mappings
             : base(entityBuilder)
         {
             entityBuilder.Property(t => t.Name).IsRequired();
-            entityBuilder.Property(t => t.Amount).IsRequired();
+            entityBuilder.Property(t => t.Quantity).IsRequired();
             entityBuilder
                 .HasOne(e => e.Recipe)
                 .WithMany(e => e.Ingredients)

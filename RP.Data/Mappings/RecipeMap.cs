@@ -10,6 +10,10 @@ namespace RP.Data.Mappings
             entityBuilder.Property(t => t.Name).IsRequired();
             entityBuilder.Property(t => t.Description).IsRequired();
             entityBuilder.Property(t => t.ImagePath).IsRequired();
+            entityBuilder.Property(t => t.TotalTime).IsRequired();
+            entityBuilder.Property(t => t.Servings).IsRequired();
+            entityBuilder.Property(t => t.DirectionsSerialized).IsRequired();
+            entityBuilder.Ignore(t => t.Directions);
         }
     }
 }

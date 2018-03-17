@@ -6,15 +6,15 @@
     "Ingredients": [
       {
         "Name": "Macarrones rallados",
-        "Amount": "1/2 Kg."
+        "Quantity": "1/2 Kg."
       },
       {
         "Name": "Carne picada",
-        "Amount": "300 g."
+        "Quantity": "300 g."
       },
       {
         "Name": "Tomate frito",
-        "Amount": "150 g."
+        "Quantity": "150 g."
       }
     ]
   },

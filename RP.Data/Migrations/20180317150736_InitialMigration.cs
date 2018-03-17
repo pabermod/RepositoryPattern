@@ -15,9 +15,12 @@ namespace RP.Data.Migrations
                     Id = table.Column<Guid>(nullable: false),
                     AddedDate = table.Column<DateTime>(nullable: false),
                     Description = table.Column<string>(nullable: false),
+                    DirectionsSerialized = table.Column<string>(nullable: false),
                     ImagePath = table.Column<string>(nullable: false),
                     ModifiedDate = table.Column<DateTime>(nullable: true),
-                    Name = table.Column<string>(nullable: false)
+                    Name = table.Column<string>(nullable: false),
+                    Servings = table.Column<int>(nullable: false),
+                    TotalTime = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -30,9 +33,9 @@ namespace RP.Data.Migrations
                 {
                     Id = table.Column<Guid>(nullable: false),
                     AddedDate = table.Column<DateTime>(nullable: false),
-                    Amount = table.Column<string>(nullable: false),
                     ModifiedDate = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: false),
+                    Quantity = table.Column<string>(nullable: false),
                     RecipeId = table.Column<Guid>(nullable: false)
                 },
                 constraints: table =>

@@ -16,7 +16,7 @@ namespace RP.API
                 .Build();
             var builder = new DbContextOptionsBuilder<ApplicationContext>();
             var connectionString = configuration.GetConnectionString("RPContext");
-            builder.UseSqlServer(connectionString);
+            builder.UseSqlServer(connectionString, b => b.MigrationsAssembly("RP.Data"));
             return new ApplicationContext(builder.Options);
         }
     }

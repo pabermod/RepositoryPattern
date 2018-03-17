@@ -17,7 +17,7 @@ namespace RP.Data.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.0.1-rtm-125")
+                .HasAnnotation("ProductVersion", "2.0.2-rtm-10011")
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
             modelBuilder.Entity("RP.Data.Ingredient", b =>
@@ -27,12 +27,12 @@ namespace RP.Data.Migrations
 
                     b.Property<DateTime>("AddedDate");
 
-                    b.Property<string>("Amount")
-                        .IsRequired();
-
                     b.Property<DateTime?>("ModifiedDate");
 
                     b.Property<string>("Name")
+                        .IsRequired();
+
+                    b.Property<string>("Quantity")
                         .IsRequired();
 
                     b.Property<Guid>("RecipeId");
@@ -54,6 +54,9 @@ namespace RP.Data.Migrations
                     b.Property<string>("Description")
                         .IsRequired();
 
+                    b.Property<string>("DirectionsSerialized")
+                        .IsRequired();
+
                     b.Property<string>("ImagePath")
                         .IsRequired();
 
@@ -61,6 +64,10 @@ namespace RP.Data.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired();
+
+                    b.Property<int>("Servings");
+
+                    b.Property<int>("TotalTime");
 
                     b.HasKey("Id");
 

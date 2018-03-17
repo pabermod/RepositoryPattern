@@ -17,9 +17,9 @@ namespace RP.Service
         {
         }
 
-        public async Task<IEnumerable<GetAllRecipesOutput>> GetAll()
+        public async Task<IEnumerable<GetAllRecipesOutput>> GetRecipes()
         {
-            return await repository.Get().AsNoTracking().ProjectTo<GetAllRecipesOutput>().ToListAsync();
+            return await repository.Get().ProjectTo<GetAllRecipesOutput>().ToListAsync();
         }
 
         public async Task<GetRecipeOutput> GetRecipe(Guid id)
@@ -47,13 +47,13 @@ namespace RP.Service
             await repository.Update(recipe);
         }
 
-        public async Task Delete(Guid id)
+        public async Task<bool> Delete(Guid id)
         {
-            if (id == null)
+            if (id == Guid.Empty)
             {
-                throw new ArgumentNullException("id");
+                throw new ArgumentException("id");
             }
-            await repository.Delete(id);
+            return await repository.Delete(id);
         }
     }
 }

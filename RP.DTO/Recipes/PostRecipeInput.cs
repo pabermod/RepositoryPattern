@@ -5,9 +5,7 @@ namespace RP.DTO.Recipes
 {
     public class PostRecipeInput : RecipeDTO
     {
-        /// <summary>
-        /// Ingredients of the recipe
-        /// </summary>
         public IEnumerable<IngredientDTO> Ingredients { get; set; }
+        public IList<string> Directions { get; set; }
     }
 }

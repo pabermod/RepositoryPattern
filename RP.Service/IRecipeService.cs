@@ -8,7 +8,7 @@ namespace RP.Service
 {
     public interface IRecipeService
     {
-        Task<IEnumerable<GetAllRecipesOutput>> GetAll();
+        Task<IEnumerable<GetAllRecipesOutput>> GetRecipes();
 
         Task<GetRecipeOutput> GetRecipe(Guid id);
 
@@ -16,6 +16,6 @@ namespace RP.Service
 
         Task Update(Recipe recipe);
 
-        Task Delete(Guid id);
+        Task<bool> Delete(Guid id);
     }
 }

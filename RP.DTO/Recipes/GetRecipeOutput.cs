@@ -6,14 +6,10 @@ namespace RP.DTO.Recipes
 {
     public class GetRecipeOutput : RecipeDTO
     {
-        /// <summary>
-        /// Id of the recipe
-        /// </summary>
         public Guid Id { get; set; }
 
-        /// <summary>
-        /// Ingredients of the recipe
-        /// </summary>
         public ICollection<IngredientDTO> Ingredients { get; set; }
+
+        public IList<string> Directions { get; set; }
     }
 }

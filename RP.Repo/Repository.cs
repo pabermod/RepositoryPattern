@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using RP.Data;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -17,6 +16,16 @@ namespace RP.Repo
         {
             this.context = context;
             dbSet = this.context.Set<T>();
+        }
+
+        public IQueryable<T> Get()
+        {
+            return dbSet;
+        }
+
+        public IQueryable<T> Get(Expression<Func<T, bool>> predicate)
+        {
+            return dbSet.Where(predicate).AsQueryable();
         }
 
         public async Task<T> Add(T entity)
@@ -43,62 +52,20 @@ namespace RP.Repo
             await SaveAsync();
         }
 
-        public async Task Delete(Guid id)
+        public async Task<bool> Delete(Guid id)
         {
-            if (id == null)
+            if (id == Guid.Empty)
             {
-                throw new ArgumentNullException("id");
+                throw new ArgumentException("id");
             }
             T existing = dbSet.Find(id);
             if (existing != null)
             {
                 dbSet.Remove(existing);
                 await SaveAsync();
+                return true;
             }
-        }
-
-        public IQueryable<T> Get()
-        {
-            return dbSet;
-        }
-
-        public IQueryable<T> Get(Expression<Func<T, bool>> predicate)
-        {
-            return dbSet.AsNoTracking().Where(predicate).AsQueryable();
-        }
-
-        public Task<T> GetEntity(Guid id)
-        {
-            return dbSet.FirstOrDefaultAsync(x => x.Id == id);
-        }
-
-        public Task<T> GetEntity(Guid id, params Expression<Func<T, object>>[] includeProperties)
-        {
-            IEnumerable<string> properties = GetProperties(includeProperties);
-
-            IQueryable<T> queryable = dbSet;
-
-            foreach (var property in includeProperties)
-            {
-                queryable = dbSet.Include(property);
-            }
-
-            return queryable.FirstOrDefaultAsync(x => x.Id == id);
-        }
-
-        private static IEnumerable<string> GetProperties(Expression<Func<T, object>>[] includeProperties)
-        {
-            List<string> includelist = new List<string>();
-
-            foreach (var item in includeProperties)
-            {
-                MemberExpression body = item.Body as MemberExpression;
-                if (body == null)
-                    throw new ArgumentException("The body must be a member expression");
-
-                includelist.Add(body.Member.Name);
-            }
-            return includelist.AsEnumerable();
+            return false;
         }
 
         private async Task SaveAsync()

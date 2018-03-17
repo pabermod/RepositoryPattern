@@ -12,14 +12,10 @@ namespace RP.Repo
 
         IQueryable<T> Get(Expression<Func<T, bool>> predicate);
 
-        Task<T> GetEntity(Guid id);
-
-        Task<T> GetEntity(Guid id, params Expression<Func<T, object>>[] includeProperties);
-
         Task<T> Add(T entity);
 
         Task Update(T entity);
 
-        Task Delete(Guid id);
+        Task<bool> Delete(Guid id);
     }
 }
