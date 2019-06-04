@@ -9,9 +9,11 @@ namespace RP.Service
     {
         public MappingsProfile()
         {
-            CreateMap<PostRecipeInput, Recipe>();
-            CreateMap<Recipe, PostRecipeOutput>();
-            CreateMap<IngredientDTO, Ingredient>();
+            CreateMap<PostRecipeInput, Recipe>(MemberList.Source);
+            CreateMap<IngredientDTO, Ingredient>(MemberList.Source).ReverseMap();
+            CreateMap<Recipe, PostRecipeOutput>(MemberList.Destination);
+            CreateMap<Recipe, GetAllRecipesOutput>(MemberList.Destination);
+            CreateMap<Recipe, GetRecipeOutput>(MemberList.Destination);
         }
     }
 }

@@ -27,7 +27,7 @@ namespace RP.API
         {
             if (!context.Recipe.Any())
             {
-                var customers = JsonConvert.DeserializeObject<List<Recipe>>(File.ReadAllText("seed" + Path.DirectorySeparatorChar + "recipe.json"));
+                var customers = JsonConvert.DeserializeObject<List<Recipe>>(File.ReadAllText("Seed" + Path.DirectorySeparatorChar + "recipe.json"));
                 context.Recipe.AddRange(customers);
                 context.SaveChanges();
             }

@@ -9,7 +9,7 @@ namespace RP.API.Controllers
     [Produces("application/json")]
     [Route("api/[Controller]")]
     [Route("api")]
-    public class RecipeController : Controller
+    public class RecipeController : ControllerBase
     {
         private readonly IRecipeService recipeService;
 
@@ -44,11 +44,6 @@ namespace RP.API.Controllers
             }
             var recipe = await recipeService.Create(item);
             return CreatedAtAction("Get", new { id = recipe.Id }, recipe);
-        }
-
-        [HttpPut("{id}")]
-        public void Put(Guid id, [FromBody]string value)
-        {
         }
 
         [HttpDelete("{id}")]

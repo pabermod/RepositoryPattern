@@ -5,7 +5,7 @@ using System;
 
 namespace RP.API.Tests.RecipeControllerTest
 {
-    public class RecipeControllerTestBase : IDisposable
+    public class RecipeControllerTestBase
     {
         protected Mock<IRecipeService> recipeServiceMock;
         protected RecipeController controller;
@@ -14,11 +14,6 @@ namespace RP.API.Tests.RecipeControllerTest
         {
             recipeServiceMock = new Mock<IRecipeService>();
             controller = new RecipeController(recipeServiceMock.Object);
-        }
-
-        public void Dispose()
-        {
-            controller.Dispose();
         }
     }
 }
